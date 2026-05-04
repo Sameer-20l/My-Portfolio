@@ -147,18 +147,19 @@ function App() {
           </aside>
         </div>
 
-        <div className="sticky-nav-wrap">
-          <ul className="sticky-nav" aria-label="Section navigation">
-            {navItems.map((item) => (
-              <li key={item.id}>
-                <a href={`#${item.id}`} className={activeSection === item.id ? 'active' : ''}>
-                  {item.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
       </header>
+
+      <div className="sticky-nav-wrap">
+        <ul className="sticky-nav" aria-label="Section navigation">
+          {navItems.map((item) => (
+            <li key={item.id}>
+              <a href={`#${item.id}`} className={activeSection === item.id ? 'active' : ''}>
+                {item.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
 
       <main>
         <section className="section reveal" id="about">
@@ -172,8 +173,8 @@ function App() {
         <section className="section reveal" id="experience">
           <h2>Experience Highlights</h2>
           <div className="grid three">
-            {experienceHighlights.map((item) => (
-              <article className="card" key={item}>
+            {experienceHighlights.map((item, index) => (
+              <article className="card reveal-stagger" style={{ '--delay': `${index * 90}ms` }} key={item}>
                 <p>{item}</p>
               </article>
             ))}
@@ -183,8 +184,8 @@ function App() {
         <section className="section reveal" id="projects">
           <h2>Projects</h2>
           <div className="timeline">
-            {projects.map((project) => (
-              <article className="timeline-card" key={project.title}>
+            {projects.map((project, index) => (
+              <article className="timeline-card reveal-stagger" style={{ '--delay': `${index * 110}ms` }} key={project.title}>
                 <p className="period-tag">{project.period}</p>
                 <h3>{project.title}</h3>
                 <p className="arch">Architecture: {project.architecture}</p>
@@ -199,8 +200,8 @@ function App() {
         <section className="section reveal" id="skills">
           <h2>Technical Skills</h2>
           <div className="skills-wrap">
-            {skills.map((skill) => (
-              <span key={skill.name} className="skill-pill">
+            {skills.map((skill, index) => (
+              <span key={skill.name} className="skill-pill reveal-stagger" style={{ '--delay': `${index * 55}ms` }}>
                 <span className="skill-icon" aria-hidden="true">{skill.icon}</span>
                 <span>{skill.name}</span>
               </span>
@@ -208,8 +209,8 @@ function App() {
           </div>
           <h3 className="subheading">Tooling</h3>
           <div className="skills-wrap">
-            {tooling.map((tool) => (
-              <span key={tool.name} className="skill-pill tool">
+            {tooling.map((tool, index) => (
+              <span key={tool.name} className="skill-pill tool reveal-stagger" style={{ '--delay': `${index * 65}ms` }}>
                 <span className="skill-icon tool-icon" aria-hidden="true">{tool.icon}</span>
                 <span>{tool.name}</span>
               </span>
