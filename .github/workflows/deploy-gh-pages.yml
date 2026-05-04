@@ -3,6 +3,9 @@ name: Deploy Portfolio to GitHub Pages
 on:
   push:
     branches: ["main"]
+    paths:
+      - "my-portfolio/**"
+      - ".github/workflows/deploy-gh-pages.yml"
   workflow_dispatch:
 
 permissions:
