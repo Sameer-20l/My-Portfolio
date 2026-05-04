@@ -163,6 +163,7 @@ h1 {
   margin: 0;
   padding: 9px;
   display: flex;
+  justify-content: center;
   gap: 8px;
   overflow-x: auto;
   border: 1px solid var(--border);
@@ -183,23 +184,11 @@ h1 {
   transition: color 0.2s ease, background-color 0.2s ease;
 }
 
-.sticky-nav a::after {
-  content: '';
-  position: absolute;
-  left: 14px;
-  right: 14px;
-  bottom: 5px;
-  height: 2px;
-  border-radius: 999px;
-  background: currentColor;
-  transform: scaleX(0);
-  transform-origin: center;
-  transition: transform 0.2s ease;
-}
-
-.sticky-nav a:hover::after,
-.sticky-nav a.active::after {
-  transform: scaleX(1);
+.sticky-nav a:hover,
+.sticky-nav a:focus,
+.sticky-nav a:visited,
+.sticky-nav a:active {
+  text-decoration: none;
 }
 
 .sticky-nav a.active {

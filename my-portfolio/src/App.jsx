@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
+import { motion } from 'framer-motion'
 import './App.css'
 
 const skills = [
@@ -55,6 +56,20 @@ const navItems = [
   { id: 'skills', label: 'Skills' },
   { id: 'contact', label: 'Contact' },
 ]
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  show: { opacity: 1, y: 0 },
+}
+
+const staggerContainer = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.12,
+    },
+  },
+}
 
 function App() {
   const [activeSection, setActiveSection] = useState('about')
@@ -115,8 +130,8 @@ function App() {
           </div>
         </nav>
 
-        <div className="hero-grid reveal">
-          <div>
+        <motion.div className="hero-grid reveal" variants={staggerContainer} initial="hidden" animate="show">
+          <motion.div variants={fadeUp}>
             <p className="role">Full Stack Developer | Nagpur, Maharashtra</p>
             <h1>Building scalable products with clean APIs, fast UIs, and production-grade reliability.</h1>
             <p className="summary">
@@ -127,14 +142,9 @@ function App() {
               <span className="status-chip">Open to roles: Backend / Full Stack</span>
               <span className="status-chip">Security-First Engineering</span>
             </div>
-            {/* <div className="cta-row">
-              <a className="btn btn-primary" href="#projects">View Projects</a>
-              <a className="btn btn-ghost" href="#contact">Contact</a>
-              <a className="btn btn-ghost" href="tel:+918208886517">Call</a>
-            </div> */}
-          </div>
+          </motion.div>
 
-          <aside className="hero-card">
+          <motion.aside className="hero-card" variants={fadeUp} whileHover={{ y: -4 }}>
             <p className="chip">Current Role</p>
             <h2>Software Developer</h2>
             <p className="org">Prevoyance IT Solutions Pvt. Ltd.</p>
@@ -144,9 +154,8 @@ function App() {
               <li>20% fewer production issues</li>
               <li>Security-first API design</li>
             </ul>
-          </aside>
-        </div>
-
+          </motion.aside>
+        </motion.div>
       </header>
 
       <div className="sticky-nav-wrap">
@@ -172,54 +181,54 @@ function App() {
 
         <section className="section reveal" id="experience">
           <h2>Experience Highlights</h2>
-          <div className="grid three">
-            {experienceHighlights.map((item, index) => (
-              <article className="card reveal-stagger" style={{ '--delay': `${index * 90}ms` }} key={item}>
+          <motion.div className="grid three" variants={staggerContainer} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }}>
+            {experienceHighlights.map((item) => (
+              <motion.article className="card" variants={fadeUp} key={item} whileHover={{ y: -4 }}>
                 <p>{item}</p>
-              </article>
+              </motion.article>
             ))}
-          </div>
+          </motion.div>
         </section>
 
         <section className="section reveal" id="projects">
           <h2>Projects</h2>
-          <div className="timeline">
-            {projects.map((project, index) => (
-              <article className="timeline-card reveal-stagger" style={{ '--delay': `${index * 110}ms` }} key={project.title}>
+          <motion.div className="timeline" variants={staggerContainer} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }}>
+            {projects.map((project) => (
+              <motion.article className="timeline-card" variants={fadeUp} key={project.title} whileHover={{ y: -5 }}>
                 <p className="period-tag">{project.period}</p>
                 <h3>{project.title}</h3>
                 <p className="arch">Architecture: {project.architecture}</p>
                 <p><strong>Problem:</strong> {project.problem}</p>
                 <p><strong>What I built:</strong> {project.built}</p>
                 <p><strong>Result:</strong> {project.result}</p>
-              </article>
+              </motion.article>
             ))}
-          </div>
+          </motion.div>
         </section>
 
         <section className="section reveal" id="skills">
           <h2>Technical Skills</h2>
-          <div className="skills-wrap">
-            {skills.map((skill, index) => (
-              <span key={skill.name} className="skill-pill reveal-stagger" style={{ '--delay': `${index * 55}ms` }}>
+          <motion.div className="skills-wrap" variants={staggerContainer} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }}>
+            {skills.map((skill) => (
+              <motion.span key={skill.name} className="skill-pill" variants={fadeUp} whileHover={{ y: -3 }}>
                 <span className="skill-icon" aria-hidden="true">{skill.icon}</span>
                 <span>{skill.name}</span>
-              </span>
+              </motion.span>
             ))}
-          </div>
+          </motion.div>
           <h3 className="subheading">Tooling</h3>
-          <div className="skills-wrap">
-            {tooling.map((tool, index) => (
-              <span key={tool.name} className="skill-pill tool reveal-stagger" style={{ '--delay': `${index * 65}ms` }}>
+          <motion.div className="skills-wrap" variants={staggerContainer} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }}>
+            {tooling.map((tool) => (
+              <motion.span key={tool.name} className="skill-pill tool" variants={fadeUp} whileHover={{ y: -3 }}>
                 <span className="skill-icon tool-icon" aria-hidden="true">{tool.icon}</span>
                 <span>{tool.name}</span>
-              </span>
+              </motion.span>
             ))}
-          </div>
+          </motion.div>
         </section>
 
         <section className="section reveal" id="contact">
-          <div className="contact-box">
+          <motion.div className="contact-box" whileHover={{ y: -4 }}>
             <h2>Let's Build Something Meaningful</h2>
             <p>
               Open to full-time opportunities and impactful engineering roles where scalability, reliability, and clean architecture matter.
@@ -230,7 +239,7 @@ function App() {
               <a href="https://www.linkedin.com" target="_blank" rel="noreferrer">LinkedIn</a>
               <a href="https://github.com" target="_blank" rel="noreferrer">GitHub</a>
             </div>
-          </div>
+          </motion.div>
         </section>
       </main>
     </div>
