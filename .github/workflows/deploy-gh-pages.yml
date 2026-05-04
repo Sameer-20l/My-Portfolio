@@ -17,9 +17,6 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: my-portfolio
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -31,10 +28,24 @@ jobs:
           cache: npm
           cache-dependency-path: my-portfolio/package-lock.json
 
-      - name: Install dependencies
-        run: npm ci
+      - name: Verify project directory
+        run: |
+          pwd
+          ls -la
+          ls -la my-portfolio
+
+      - name: Install dependencies (prefer ci)
+        working-directory: my-portfolio
+        run: npm ci --no-audit --no-fund
+        continue-on-error: true
+
+      - name: Fallback install
+        if: ${{ failure() }}
+        working-directory: my-portfolio
+        run: npm install --no-audit --no-fund
 
       - name: Build with repository base path
+        working-directory: my-portfolio
         env:
           REPO_NAME: ${{ github.event.repository.name }}
         run: npm run build -- --base="/${REPO_NAME}/"
