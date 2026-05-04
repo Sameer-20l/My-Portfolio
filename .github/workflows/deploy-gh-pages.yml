@@ -34,15 +34,10 @@ jobs:
           ls -la
           ls -la my-portfolio
 
-      - name: Install dependencies (prefer ci)
+      - name: Install dependencies
         working-directory: my-portfolio
-        run: npm ci --no-audit --no-fund
-        continue-on-error: true
-
-      - name: Fallback install
-        if: ${{ failure() }}
-        working-directory: my-portfolio
-        run: npm install --no-audit --no-fund
+        run: |
+          npm ci --no-audit --no-fund || npm install --no-audit --no-fund
 
       - name: Build with repository base path
         working-directory: my-portfolio
