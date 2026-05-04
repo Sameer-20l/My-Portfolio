@@ -127,11 +127,11 @@ function App() {
               <span className="status-chip">Open to roles: Backend / Full Stack</span>
               <span className="status-chip">Security-First Engineering</span>
             </div>
-            <div className="cta-row">
+            {/* <div className="cta-row">
               <a className="btn btn-primary" href="#projects">View Projects</a>
               <a className="btn btn-ghost" href="#contact">Contact</a>
               <a className="btn btn-ghost" href="tel:+918208886517">Call</a>
-            </div>
+            </div> */}
           </div>
 
           <aside className="hero-card">
