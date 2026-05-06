@@ -57,6 +57,13 @@ const navItems = [
   { id: 'contact', label: 'Contact' },
 ]
 
+const contactItems = [
+  { href: 'mailto:sameer.shende154@gmail.com', label: 'sameer.shende154@gmail.com', icon: '@', iconLabel: 'Email' },
+  { href: 'tel:+918208886517', label: '+91-8208886517', icon: '\u260E', iconLabel: 'Phone' },
+  { href: 'https://www.linkedin.com/in/sameer-shende-222a32253', label: 'LinkedIn', icon: 'in', iconLabel: 'LinkedIn', external: true },
+  { href: 'https://github.com/Sameer-20l', label: 'GitHub', icon: 'GH', iconLabel: 'GitHub', external: true },
+]
+
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
   show: { opacity: 1, y: 0 },
@@ -94,7 +101,29 @@ function App() {
 
     sections.forEach((section) => observer.observe(section))
 
-    return () => observer.disconnect()
+    const updateActiveAtPageEdges = () => {
+      const scrollTop = window.scrollY
+      const viewportBottom = scrollTop + window.innerHeight
+      const pageBottom = document.documentElement.scrollHeight
+
+      if (scrollTop <= 8) {
+        setActiveSection('about')
+        return
+      }
+
+      // The last section may not enter the observer's center band at the very end of the page.
+      if (viewportBottom >= pageBottom - 8) {
+        setActiveSection('contact')
+      }
+    }
+
+    window.addEventListener('scroll', updateActiveAtPageEdges, { passive: true })
+    updateActiveAtPageEdges()
+
+    return () => {
+      observer.disconnect()
+      window.removeEventListener('scroll', updateActiveAtPageEdges)
+    }
   }, [navSet])
 
   useEffect(() => {
@@ -234,10 +263,18 @@ function App() {
               Open to full-time opportunities and impactful engineering roles where scalability, reliability, and clean architecture matter.
             </p>
             <div className="contact-links">
-              <a href="mailto:sameer.shende154@gmail.com">sameer.shende154@gmail.com</a>
-              <a href="tel:+918208886517">+91-8208886517</a>
-              <a href="https://www.linkedin.com" target="_blank" rel="noreferrer">LinkedIn</a>
-              <a href="https://github.com" target="_blank" rel="noreferrer">GitHub</a>
+              {contactItems.map((item) => (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  target={item.external ? '_blank' : undefined}
+                  rel={item.external ? 'noreferrer' : undefined}
+                >
+                  <span className="contact-icon" aria-hidden="true">{item.icon}</span>
+                  <span className="sr-only">{item.iconLabel}</span>
+                  <span>{item.label}</span>
+                </a>
+              ))}
             </div>
           </motion.div>
         </section>
